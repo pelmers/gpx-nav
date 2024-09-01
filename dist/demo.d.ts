@@ -1,0 +1,1 @@
+import '../static/map.css';

@@ -1,0 +1,92 @@
+#gpx-input {
+    display: none;
+}
+
+#gpx-dragdrop {
+    text-align: center;
+    height: 100px;
+    background-color: #d5d5d5;
+    margin-top: 10px;
+    vertical-align: middle;
+    line-height: 100px;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-style: dashed;
+    border-width: 3px;
+    border-color: #a5a5a5;
+    cursor: pointer;
+}
+
+#gpx-dragdrop.dragEnter {
+    background-color: #ae200043;
+}
+
+.loading-spinner {
+    position: relative;
+    left: 50%;
+    margin-left: -40px;
+    width: 80px;
+    height: 80px;
+}
+.loading-spinner:after {
+    content: ' ';
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #2c8898;
+    border-color: #2c8898 transparent #2c8898 transparent;
+    animation: loading-spinner 1.2s linear infinite;
+}
+@keyframes loading-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner-progress-text {
+    color: #2c8898;
+    font-weight: bold;
+    text-align: center;
+}
+
+#gpx-button {
+    width: calc(100% - 20px);
+    font-size: 1.3em;
+    line-height: 2em;
+    margin: 10px;
+}
+
+#footer {
+    border: 0 solid #2c8898;
+    border-color: rgb(213, 214, 216);
+    border-top-width: 2px;
+    margin-top: 1.2em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#footer a {
+    margin-right: 2em;
+}
+
+#logo {
+    max-height: 4em;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}
