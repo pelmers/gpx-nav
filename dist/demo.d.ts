@@ -1,1 +1,1 @@
-import '../static/map.css';
+export {};

@@ -90,3 +90,57 @@
     color: red;
     font-weight: bold;
 }
+
+.helpText {
+    padding: 0 0 0 2ch;
+    margin: 0;
+}
+
+.center {
+    margin: auto;
+    max-width: 38em;
+}
+
+.labelInputWithHelp {
+    cursor: pointer;
+}
+
+.labelInputWithHelp:hover {
+    text-decoration: underline 3px #3b22ea;
+}
+
+.labelInputWithHelp::after {
+    content: ' [?]';
+    font-weight: bolder;
+}
+
+.control-group label {
+    display: inline;
+}
+
+.range-slider {
+    display: inline;
+}
+input[type='range'] {
+    width: calc(100% - (25px + 4ch + 0.25rem));
+    height: 10px;
+    border-radius: 5px;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+.control-group {
+    border: 1px solid #2c8898;
+    border-radius: 5px;
+    padding: 10px;
+    display: grid;
+    grid-gap: 0.25rem;
+    grid-template-columns: 195px auto;
+}
+
+@media (max-width: 684px) {
+    .control-group {
+        grid-template-columns: 160px auto;
+    }
+}
