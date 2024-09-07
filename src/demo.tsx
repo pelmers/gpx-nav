@@ -5,6 +5,7 @@ import ErrorComponent from './components/ErrorComponent';
 import LoadGpxComponent from './components/LoadGpxComponent';
 import LoadingComponent from './components/LoadingComponent';
 import { GpxInfo } from './types';
+import { pointsToMapsUrl } from './mapTools';
 
 type State = {
     gpxInfo?: GpxInfo;
@@ -47,7 +48,7 @@ class App extends React.Component<{}, State> {
                 </>
             );
         } else if (this.state.gpxInfo != null) {
-            // TODO: just show the generated maps link
+            console.log(pointsToMapsUrl(this.state.gpxInfo.points));
             throw new Error('not implemented');
         } else {
             return <LoadGpxComponent onGpxLoad={this.onFileAdded} />;

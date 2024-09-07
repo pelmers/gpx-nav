@@ -1,4 +1,3 @@
-import { Feature, Point } from '@turf/turf';
 import { GeoJsonPoint, LatLonEle } from './types';
 
 export function toGeoJson(point: LatLonEle): GeoJsonPoint {
@@ -30,3 +29,24 @@ export const fixBearingDomain = (b: number) => {
     }
     return b;
 };
+
+// Convert a GPX point to google maps data encoded point.
+// The inverse of https://github.com/david-r-edgar/google-maps-data-parameter-parser
+export function pointsToMapsUrl(points: LatLonEle[]): string {
+    const start = points[0];
+    const end = points[points.length - 1];
+    const waypoints = points.slice(1, points.length - 1)
+    const baseUrl = "https://www.google.com/maps/dir/";
+    let url = `${baseUrl}${start.lat},${start.lon}/${end.lat},${end.lon}/`;
+  
+    url += "data=!4m25!4m24!1m21!";
+  
+    waypoints.forEach((point, index) => {
+      url += `3m4!1m2!1d${point.lon}!2d${point.lat}!3s0x0:0x0!`;
+    });
+  
+    url += "4e1!1m0!3e1!5m1!1e2";
+  
+    return url;
+}
+
