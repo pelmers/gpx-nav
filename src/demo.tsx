@@ -28,19 +28,19 @@ class App extends React.Component<{}, State> {
                 file.text(),
                 import('./gpxParsing'),
             ]);
+            const gpxInfo = gpxParse.default(
+                gpxContents,
+                GMAPS_TARGET_POINTS,
+                joinTracks
+            );
             this.setState({
                 isLoadingFile: false,
                 gpxError: undefined,
-                gpxInfo: gpxParse.default(gpxContents, GMAPS_TARGET_POINTS, joinTracks),
+                gpxInfo,
                 mapMode,
             });
-            if (this.state.gpxInfo) {
-                const url = pointsToMapsUrl(
-                    this.state.gpxInfo.points,
-                    this.state.mapMode
-                );
-                window.open(url, '_blank');
-            }
+            const url = pointsToMapsUrl(gpxInfo.points, mapMode);
+            window.open(url, '_blank');
         } catch (e) {
             this.setState({
                 isLoadingFile: false,
@@ -67,11 +67,10 @@ class App extends React.Component<{}, State> {
             return (
                 <>
                     <LoadGpxComponent onGpxLoad={this.onFileAdded} />
-                    {this.state.gpxInfo != null ?? (
+                    {this.state.gpxInfo != null && (
                         <div className="resultLinkContainer center">
-                            <h2>Open Google Maps</h2>
                             <button
-                                style={{ fontSize: 24 }}
+                                style={{ fontSize: 24, marginTop: '1em' }}
                                 onClick={() =>
                                     window.open(
                                         pointsToMapsUrl(
