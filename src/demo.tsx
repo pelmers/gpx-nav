@@ -5,12 +5,13 @@ import ErrorComponent from './components/ErrorComponent';
 import LoadGpxComponent from './components/LoadGpxComponent';
 import LoadingComponent from './components/LoadingComponent';
 import { GpxInfo } from './types';
-import { pointsToMapsUrl } from './mapTools';
+import { MapMode, pointsToMapsUrl } from './mapTools';
 
 type State = {
     gpxInfo?: GpxInfo;
     gpxError?: string;
     isLoadingFile?: boolean;
+    mapMode?: MapMode;
 };
 
 // Limitation of google maps directions: max 25 waypoints.
@@ -19,7 +20,7 @@ const GMAPS_TARGET_POINTS = 25;
 class App extends React.Component<{}, State> {
     state: State = {};
 
-    onFileAdded = async (file: File, joinTracks: boolean) => {
+    onFileAdded = async (file: File, joinTracks: boolean, mapMode: MapMode) => {
         this.setState({ isLoadingFile: true });
         try {
             // Import the other components async so the bundle can be split
@@ -31,6 +32,7 @@ class App extends React.Component<{}, State> {
                 isLoadingFile: false,
                 gpxError: undefined,
                 gpxInfo: gpxParse.default(gpxContents, GMAPS_TARGET_POINTS, joinTracks),
+                mapMode,
             });
         } catch (e) {
             this.setState({
@@ -51,10 +53,18 @@ class App extends React.Component<{}, State> {
                 </>
             );
         } else if (this.state.gpxInfo != null) {
-            console.log('url1', pointsToMapsUrl(this.state.gpxInfo.points));
-            // TODO: show this in a component
-            // TODO: by the way if the start and the end are too close then it's no good...
-            return <div>see console</div>;
+            const url = pointsToMapsUrl(this.state.gpxInfo.points, this.state.mapMode);
+            return (
+                <div className="resultLinkContainer center">
+                    <h2>Open Google Maps</h2>
+                    <button
+                        style={{ fontSize: 24 }}
+                        onClick={() => window.open(url, '_blank')}
+                    >
+                        Open in Google Maps
+                    </button>
+                </div>
+            );
         } else {
             return <LoadGpxComponent onGpxLoad={this.onFileAdded} />;
         }

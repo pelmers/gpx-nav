@@ -1,3 +1,19 @@
+/* color */
+:root {
+    --color-50: #dfffe5;
+    --color-100: #a1ffb7;
+    --color-200: #89f1a3;
+    --color-300: #7ae294;
+    --color-400: #6ad285;
+    --color-500: #57c376;
+    --color-600: #00a54d;
+    --color-700: #007434;
+    --color-800: #00451c;
+    --color-900: #001f09;
+}
+
+/* rest of the file... */
+
 #gpx-input {
     display: none;
 }
@@ -5,7 +21,7 @@
 #gpx-dragdrop {
     text-align: center;
     height: 100px;
-    background-color: #d5d5d5;
+    background-color: var(--color-50);
     margin-top: 10px;
     vertical-align: middle;
     line-height: 100px;
@@ -13,12 +29,12 @@
     margin-right: 6px;
     border-style: dashed;
     border-width: 3px;
-    border-color: #a5a5a5;
+    border-color: var(--color-200);
     cursor: pointer;
 }
 
 #gpx-dragdrop.dragEnter {
-    background-color: #ae200043;
+    background-color: var(--color-600);
 }
 
 .loading-spinner {
@@ -35,21 +51,11 @@
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid #2c8898;
-    border-color: #2c8898 transparent #2c8898 transparent;
-    animation: loading-spinner 1.2s linear infinite;
-}
-@keyframes loading-spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    border: 6px solid var(--color-600);
 }
 
 .loading-spinner-progress-text {
-    color: #2c8898;
+    color: var(--color-700);
     font-weight: bold;
     text-align: center;
 }
@@ -59,12 +65,12 @@
     font-size: 1.3em;
     line-height: 2em;
     margin: 10px;
+    background-color: var(--color-500);
+    color: #fff; /* white text */
 }
 
 #footer {
-    border: 0 solid #2c8898;
-    border-color: rgb(213, 214, 216);
-    border-top-width: 2px;
+    border: 0 solid var(--color-600);
     margin-top: 1.2em;
     display: flex;
     flex-wrap: wrap;
@@ -72,6 +78,7 @@
 
 #footer a {
     margin-right: 2em;
+    color: var(--color-700); /* link text color */
 }
 
 #logo {
@@ -83,11 +90,11 @@
 }
 
 .error-message {
-    color: red;
+    color: var(--color-900);
 }
 
 .errorMessage {
-    color: red;
+    color: var(--color-900);
     font-weight: bold;
 }
 
@@ -106,7 +113,7 @@
 }
 
 .labelInputWithHelp:hover {
-    text-decoration: underline 3px #3b22ea;
+    text-decoration: underline 3px var(--color-700);
 }
 
 .labelInputWithHelp::after {
@@ -131,7 +138,7 @@ input[type='range'] {
 }
 
 .control-group {
-    border: 1px solid #2c8898;
+    border: 1px solid var(--color-600);
     border-radius: 5px;
     padding: 10px;
     display: grid;
@@ -143,4 +150,8 @@ input[type='range'] {
     .control-group {
         grid-template-columns: 160px auto;
     }
+}
+
+.resultLinkContainer button {
+    background-color: var(--color-600);
 }

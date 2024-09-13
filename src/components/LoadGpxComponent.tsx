@@ -1,21 +1,24 @@
 import React from 'react';
 import CheckboxControlInputComponent from './CheckboxControlInputComponent';
 import RangeSliderComponent from './RangeSliderComponent';
+import { MapMode } from '../mapTools';
+import MultipleChoiceInputComponent from './MultipleChoiceInputComponent';
 
 type Props = {
-    onGpxLoad: (gpxFile: File, joinTracks: boolean) => unknown;
+    onGpxLoad: (gpxFile: File, joinTracks: boolean, mapMode: MapMode) => unknown;
 };
 
 type State = {
     joinTracks: boolean;
+    mapMode: MapMode;
 };
 
 export default class LoadGpxComponent extends React.Component<Props, State> {
     gpxInputRef = React.createRef<HTMLInputElement>();
 
     state = {
-        // TODO: add control for map mode
         joinTracks: false,
+        mapMode: 'bike' as const,
     };
 
     render() {
@@ -24,7 +27,7 @@ export default class LoadGpxComponent extends React.Component<Props, State> {
             Note that most files only have one track.`;
 
         const handleFiles = (files: FileList) =>
-            this.props.onGpxLoad(files[0], this.state.joinTracks);
+            this.props.onGpxLoad(files[0], this.state.joinTracks, this.state.mapMode);
         return (
             <div className="center">
                 <h4 id="gpx-step-header">Load GPX file</h4>
@@ -70,6 +73,26 @@ export default class LoadGpxComponent extends React.Component<Props, State> {
                     </div>
                 </div>
                 <div className="control-group">
+                    <MultipleChoiceInputComponent
+                        labelText="Travel Mode"
+                        helpText="Select the initial travel mode. This can be changed within Google Maps."
+                        options={[
+                            {
+                                value: 'bike' as const,
+                                label: 'Bike',
+                            },
+                            {
+                                value: 'car' as const,
+                                label: 'Car',
+                            },
+                            {
+                                value: 'walk' as const,
+                                label: 'Walk',
+                            },
+                        ]}
+                        defaultValue={this.state.mapMode}
+                        onChange={(value) => this.setState({ mapMode: value })}
+                    />
                     <CheckboxControlInputComponent
                         labelText="Join Tracks"
                         defaultChecked={this.state.joinTracks}
