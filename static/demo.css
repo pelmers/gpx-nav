@@ -70,7 +70,7 @@
 }
 
 #footer {
-    border: 0 solid var(--color-600);
+    border-top: 1px solid var(--color-800);
     margin-top: 1.2em;
     display: flex;
     flex-wrap: wrap;
