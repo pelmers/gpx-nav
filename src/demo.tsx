@@ -34,6 +34,13 @@ class App extends React.Component<{}, State> {
                 gpxInfo: gpxParse.default(gpxContents, GMAPS_TARGET_POINTS, joinTracks),
                 mapMode,
             });
+            if (this.state.gpxInfo) {
+                const url = pointsToMapsUrl(
+                    this.state.gpxInfo.points,
+                    this.state.mapMode
+                );
+                window.open(url, '_blank');
+            }
         } catch (e) {
             this.setState({
                 isLoadingFile: false,
@@ -44,7 +51,11 @@ class App extends React.Component<{}, State> {
 
     render() {
         if (this.state.isLoadingFile) {
-            return <LoadingComponent message={'Processing selected file'} />;
+            return (
+                <>
+                    <LoadingComponent message={'Processing selected file'} />
+                </>
+            );
         } else if (this.state.gpxError != null) {
             return (
                 <>
@@ -52,21 +63,31 @@ class App extends React.Component<{}, State> {
                     <LoadGpxComponent onGpxLoad={this.onFileAdded} />
                 </>
             );
-        } else if (this.state.gpxInfo != null) {
-            const url = pointsToMapsUrl(this.state.gpxInfo.points, this.state.mapMode);
-            return (
-                <div className="resultLinkContainer center">
-                    <h2>Open Google Maps</h2>
-                    <button
-                        style={{ fontSize: 24 }}
-                        onClick={() => window.open(url, '_blank')}
-                    >
-                        Open in Google Maps
-                    </button>
-                </div>
-            );
         } else {
-            return <LoadGpxComponent onGpxLoad={this.onFileAdded} />;
+            return (
+                <>
+                    <LoadGpxComponent onGpxLoad={this.onFileAdded} />
+                    {this.state.gpxInfo != null ?? (
+                        <div className="resultLinkContainer center">
+                            <h2>Open Google Maps</h2>
+                            <button
+                                style={{ fontSize: 24 }}
+                                onClick={() =>
+                                    window.open(
+                                        pointsToMapsUrl(
+                                            this.state.gpxInfo!.points,
+                                            this.state.mapMode
+                                        ),
+                                        '_blank'
+                                    )
+                                }
+                            >
+                                Open in Google Maps
+                            </button>
+                        </div>
+                    )}
+                </>
+            );
         }
     }
 }

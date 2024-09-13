@@ -8,11 +8,11 @@ GPX Nav takes your GPX file and gives you the Google Maps directions URL, all in
 
 > Note: there is some inaccuracy in the process. Google Maps only supports routes with up to 25 waypoints.
 
-> Typical GPX track recordings take a point every second, so they end up with hundreds or thousands of track points.
+Typical GPX track recordings take a point every second, so they end up with hundreds or thousands of track points.
 Even when you export routes from apps like Strava or Garmin, you get a track file with many points, not a GPX route file with only turns labeled.
 
-> I take a best-effort approach to give something reasonable by picking out 25 evenly-spaced points along your route.
-But this will not be perfect. *Double-check the output!*
+I take a best-effort approach to give something reasonable by picking out 25 evenly-spaced points along your route.
+But this will not be perfect. _Double-check the output!_
 
 ### New Features
 
