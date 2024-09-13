@@ -13,10 +13,13 @@ type State = {
     isLoadingFile?: boolean;
 };
 
+// Limitation of google maps directions: max 25 waypoints.
+const GMAPS_TARGET_POINTS = 25;
+
 class App extends React.Component<{}, State> {
     state: State = {};
 
-    onFileAdded = async (file: File, smoothingFactor: number, joinTracks: boolean) => {
+    onFileAdded = async (file: File, joinTracks: boolean) => {
         this.setState({ isLoadingFile: true });
         try {
             // Import the other components async so the bundle can be split
@@ -27,7 +30,7 @@ class App extends React.Component<{}, State> {
             this.setState({
                 isLoadingFile: false,
                 gpxError: undefined,
-                gpxInfo: gpxParse.default(gpxContents, smoothingFactor, joinTracks),
+                gpxInfo: gpxParse.default(gpxContents, GMAPS_TARGET_POINTS, joinTracks),
             });
         } catch (e) {
             this.setState({
@@ -48,8 +51,10 @@ class App extends React.Component<{}, State> {
                 </>
             );
         } else if (this.state.gpxInfo != null) {
-            console.log(pointsToMapsUrl(this.state.gpxInfo.points));
-            throw new Error('not implemented');
+            console.log('url1', pointsToMapsUrl(this.state.gpxInfo.points));
+            // TODO: show this in a component
+            // TODO: by the way if the start and the end are too close then it's no good...
+            return <div>see console</div>;
         } else {
             return <LoadGpxComponent onGpxLoad={this.onFileAdded} />;
         }

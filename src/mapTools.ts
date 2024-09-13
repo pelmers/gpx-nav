@@ -20,33 +20,30 @@ export const bearingDiff = (a: number, b: number) => {
     return sign * (diff > 180 ? -(360 - diff) : diff);
 };
 
-// Fix a bearing between [-360, 360] to [-180, 180]
-export const fixBearingDomain = (b: number) => {
-    if (b < -180) {
-        return 360 + b;
-    } else if (b > 180) {
-        return -360 + b;
-    }
-    return b;
-};
-
 // Convert a GPX point to google maps data encoded point.
 // The inverse of https://github.com/david-r-edgar/google-maps-data-parameter-parser
-export function pointsToMapsUrl(points: LatLonEle[]): string {
-    const start = points[0];
-    const end = points[points.length - 1];
-    const waypoints = points.slice(1, points.length - 1)
-    const baseUrl = "https://www.google.com/maps/dir/";
-    let url = `${baseUrl}${start.lat},${start.lon}/${end.lat},${end.lon}/`;
-  
-    url += "data=!4m25!4m24!1m21!";
-  
-    waypoints.forEach((point, index) => {
-      url += `3m4!1m2!1d${point.lon}!2d${point.lat}!3s0x0:0x0!`;
-    });
-  
-    url += "4e1!1m0!3e1!5m1!1e2";
-  
-    return url;
+export type MapMode = 'walk' | 'bike' | 'car';
+export function pointsToMapsUrl(
+    points: LatLonEle[],
+    mode: MapMode = 'walk' as const
+): string {
+    let modeValue;
+    switch (mode) {
+        case 'walk':
+            modeValue = 2;
+            break;
+        case 'bike':
+            modeValue = 1;
+            break;
+        case 'car':
+            modeValue = 0;
+            break;
+    }
+    const baseUrl = 'https://www.google.com/maps/dir';
+    let url = baseUrl;
+    for (const point of points) {
+        url += `/${point.lat},${point.lon}`;
+    }
+    const modeString = `/data=!4m2!4m1!3e${modeValue}`;
+    return url + modeString;
 }
-
