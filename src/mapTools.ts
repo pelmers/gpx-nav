@@ -44,6 +44,7 @@ export function pointsToMapsUrl(
     for (const point of points) {
         url += `/${point.lat},${point.lon}`;
     }
+    // https://www.google.com/maps/dir/C%26C+Asian+Market+Food,+Albert+Cuypstraat,+Amsterdam/Fietswasserette+Chasse+Patate,+Tweede+van+der+Helststraat+75,+1073+AL+Amsterdam/@52.3532438,4.8908895,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x47c60955fe535737:0x12b014394910caf5!2m2!1d4.8987913!2d52.3571635!1m5!1m1!1s0x47c609c136a35847:0xeb04126d27bc574e!2m2!1d4.8949328!2d52.3493243!3e2?entry=ttu&g_ep=EgoyMDI0MTAxNi4wIKXMDSoASAFQAw%3D%3D
     const modeString = `/data=!4m2!4m1!3e${modeValue}`;
     return url + modeString;
 }

@@ -213,8 +213,8 @@ input[type='reset']:focus:enabled,
 input[type='reset']:hover:enabled,
 input[type='button']:focus:enabled,
 input[type='button']:hover:enabled {
-    background-color: #982c61;
-    border-color: #982c61;
+    background-color: #00451c;
+    border-color: #00451c;
     color: #f9f9f9;
     outline: 0;
 }
